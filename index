@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LamQuocCuong - Dịch Vụ Mạng Xã Hội</title>
+    
+        <meta name="description" content="Bảng giá dịch vụ mạng xã hội: Unlock, kháng nghị, Dame (report), Tick xanh và tăng tương tác. Uy tín - bảo mật - chất lượng." />
+        <meta name="theme-color" content="#050505" />
+        <meta property="og:title" content="LamQuocCuong - Dịch Vụ Mạng Xã Hội" />
+        <meta property="og:description" content="Bảng giá dịch vụ mạng xã hội: Unlock, kháng nghị, Dame (report), Tick xanh và tăng tương tác." />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="LamQuocCuong" />
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom Styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #050505;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+
+        /* Scroll Behavior */
+        html { scroll-behavior: smooth; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+        /* Animations */
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+        .animate-marquee {
+            animation: marquee 30s linear infinite;
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 200% center; }
+            100% { background-position: -200% center; }
+        }
+        .animate-text-shimmer {
+            background-size: 200% auto;
+            animation: shimmer 5s linear infinite;
+        }
+
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .animate-pulse-slow {
+            animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        @keyframes fade-in-up {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-up {
+            animation: fade-in-up 0.5s ease-out forwards;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Scroll Reveal Utility Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s cubic-bezier(0.5, 0, 0, 1);
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Stagger delays for reveal */
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+
+        /* Glassmorphism Utilities */
+        /* Đã chỉnh sửa để trong suốt hơn và bỏ viền theo yêu cầu */
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.2); /* Giảm độ mờ nền */
+            backdrop-filter: blur(8px); /* Giảm độ blur để nhìn xuyên thấu tốt hơn */
+            -webkit-backdrop-filter: blur(8px);
+            /* border: 1px solid rgba(255, 255, 255, 0.05);  <- Đã bỏ viền */
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .glass-panel:hover {
+            background: rgba(15, 23, 42, 0.3);
+            box-shadow: 0 15px 40px 0 rgba(0, 0, 0, 0.4);
+            transform: translateY(-5px);
+        }
+
+        .glass-card {
+            background: rgba(30, 41, 59, 0.3);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Particles Container */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            pointer-events: none; /* Never block UI interactions */
+        }
+        
+        /* Ensure content is above particles */
+        .relative-z {
+            position: relative;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+
+    <!-- Ticker Notification -->
+    <div class="relative z-50 bg-[#050b14]/80 backdrop-blur-md border-b border-white/10 h-10 overflow-hidden flex items-center">
+        <div class="bg-blue-600 px-4 h-full flex items-center text-xs font-bold text-white uppercase tracking-wider shadow-lg z-20 shrink-0">
+            <i data-lucide="trending-up" class="w-3.5 h-3.5 mr-2"></i> Tin Mới
+        </div>
+        <div class="w-full overflow-hidden">
+            <div class="animate-marquee pl-4 text-sm text-gray-300 flex items-center">
+                <span class="mx-8 flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-green-500 mr-2 animate-pulse"></span>Dame Tài khoản Facebook tỷ lệ về 99%.</span>
+                <span class="mx-8 flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-yellow-500 mr-2 animate-pulse"></span>Mở khóa 956 giá chỉ 650k cho khách lẻ.</span>
+                <span class="mx-8 flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-red-500 mr-2 animate-pulse"></span>Nhận lên Tick Xanh chính chủ bảo hành vĩnh viễn.</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed top-10 left-0 w-full z-40 transition-all duration-300 bg-transparent">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex items-center gap-2 cursor-pointer group">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-cyan-400 blur-lg opacity-50 group-hover:opacity-100 transition-opacity"></div>
+                        <div class="bg-gradient-to-tr from-cyan-400 to-blue-600 p-2 rounded-lg relative z-10">
+                            <i data-lucide="zap" class="text-white w-6 h-6"></i>
+                        </div>
+                    </div>
+                    <!-- Đã đổi thành chữ thường -->
+                    <span class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan-100 to-gray-400">
+                        lamquoc<span class="text-cyan-400">cuong</span>
+                    </span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#" class="text-gray-300 hover:text-cyan-400 transition-colors text-sm font-semibold tracking-wide">Trang Chủ</a>
+                    <a href="#pricing" class="text-gray-300 hover:text-cyan-400 transition-colors text-sm font-semibold tracking-wide">Dịch Vụ</a>
+                    <a href="#contact" class="text-gray-300 hover:text-cyan-400 transition-colors text-sm font-semibold tracking-wide">Hỗ Trợ</a>
+                    
+                    <a href="https://zalo.me/0972026482" target="_blank" rel="noopener noreferrer" class="group relative px-6 py-2.5 rounded-full overflow-hidden bg-cyan-500/10 border border-cyan-500/50 text-cyan-400 font-bold shadow-[0_0_15px_rgba(6,182,212,0.3)] transition-all hover:bg-cyan-500 hover:text-white hover:shadow-[0_0_25px_rgba(6,182,212,0.6)]">
+                        <span class="relative z-10 flex items-center gap-2">
+                            <i data-lucide="message-circle" class="w-4 h-4"></i> Liên Hệ Admin
+                        </span>
+                    </a>
+                </div>
+
+                <!-- Mobile Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-white">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-[#0f172a]/95 backdrop-blur-xl border-b border-white/10 px-4 pt-2 pb-4 space-y-2 shadow-2xl">
+            <a href="#" class="block text-gray-300 py-3 border-b border-white/5 mobile-link">Trang Chủ</a>
+            <a href="#pricing" class="block text-gray-300 py-3 border-b border-white/5 mobile-link">Bảng Giá</a>
+            <a href="#contact" class="block w-full text-center bg-cyan-600 py-3 rounded-xl text-white font-bold mt-4 shadow-lg shadow-cyan-500/40 mobile-link">Liên Hệ Ngay</a>
+        </div>
+    </nav>
+
+    <main class="relative-z">
+        <!-- Hero Section -->
+        <div class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-visible pointer-events-none">
+            <div class="relative z-10 max-w-7xl mx-auto px-4 text-center pointer-events-auto">
+                
+                <!-- Animated Badge -->
+                <div class="reveal inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold tracking-widest uppercase mb-8 shadow-[0_0_15px_rgba(6,182,212,0.2)] animate-bounce-slow backdrop-blur-md">
+                    <span class="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_10px_#22d3ee] animate-pulse"></span>
+                    Uy tín - Bảo Mật - Chất lượng
+                </div>
+                
+                <!-- Title -->
+                <h1 class="reveal delay-100 text-5xl md:text-7xl font-black text-white tracking-tighter mb-8 leading-normal drop-shadow-2xl">
+                    Giải Pháp Mạng Xã Hội <br />
+                    <span class="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 animate-text-shimmer py-2">
+                        Đẳng Cấp Công Nghệ
+                    </span>
+                </h1>
+                
+                <!-- Intro Text -->
+                <div class="reveal delay-200 max-w-4xl mx-auto glass-panel p-6 rounded-2xl mb-12 border border-white/10 shadow-2xl animate-float">
+                    <p class="text-lg md:text-xl text-gray-300 leading-relaxed">
+                        Hệ thống tự động hóa 100%. Cung cấp đa dạng dịch vụ từ <span class="text-cyan-400 font-semibold">Tăng tương tác</span>, <span class="text-purple-400 font-semibold">Mở khóa tài khoản</span> đến <span class="text-red-400 font-semibold">Dịch vụ Report</span>. 
+                        An toàn tuyệt đối cho tài khoản của bạn.
+                    </p>
+                </div>
+                
+                <div class="reveal delay-300 flex flex-col sm:flex-row items-center justify-center gap-6">
+                    <a href="#pricing" class="relative group w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-cyan-600 to-blue-700 rounded-xl text-white font-bold text-lg shadow-[0_0_30px_rgba(6,182,212,0.4)] overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_50px_rgba(6,182,212,0.6)]">
+                        <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 blur-md"></div>
+                        <span class="relative flex items-center justify-center gap-2">
+                            <i data-lucide="zap" class="w-5 h-5 group-hover:text-yellow-300 transition-colors"></i> Xem Bảng Giá
+                        </span>
+                    </a>
+                    
+                    <a href="#contact" class="w-full sm:w-auto px-8 py-4 bg-white/5 border border-white/10 rounded-xl text-white font-bold text-lg backdrop-blur-md hover:bg-white/10 hover:border-cyan-500/50 transition-all flex items-center justify-center gap-2 group shadow-lg">
+                        <i data-lucide="message-circle" class="w-5 h-5 group-hover:text-cyan-400 transition-colors"></i> Tư Vấn 1:1
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div id="features" class="py-24 relative z-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Feature Items with Scroll Reveal -->
+                    <div class="reveal glass-panel bg-[#0f172a]/30 backdrop-blur-md border border-white/5 p-8 rounded-3xl">
+                        <div class="mb-6 bg-white/5 w-16 h-16 rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-all">
+                            <i data-lucide="cpu" class="w-9 h-9 text-cyan-400 animate-float"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-cyan-300 transition-colors">Tự Động Hóa AI</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">Hệ thống sử dụng AI để xử lý đơn hàng ngay lập tức.</p>
+                    </div>
+
+                    <div class="reveal delay-100 glass-panel bg-[#0f172a]/30 backdrop-blur-md border border-white/5 p-8 rounded-3xl">
+                        <div class="mb-6 bg-white/5 w-16 h-16 rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-all">
+                            <i data-lucide="shield-check" class="w-9 h-9 text-green-400 animate-float" style="animation-delay: 1s;"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-cyan-300 transition-colors">Bảo Mật Kép</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">Mã hóa dữ liệu đầu cuối, không lưu log tài khoản.</p>
+                    </div>
+
+                    <div class="reveal delay-200 glass-panel bg-[#0f172a]/30 backdrop-blur-md border border-white/5 p-8 rounded-3xl">
+                        <div class="mb-6 bg-white/5 w-16 h-16 rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-all">
+                            <i data-lucide="headphones" class="w-9 h-9 text-blue-400 animate-float" style="animation-delay: 2s;"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-cyan-300 transition-colors">Hỗ trợ 24/7</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">Đội ngũ kỹ thuật viên trực đêm hỗ trợ sự cố.</p>
+                    </div>
+
+                    <div class="reveal delay-300 glass-panel bg-[#0f172a]/30 backdrop-blur-md border border-white/5 p-8 rounded-3xl">
+                        <div class="mb-6 bg-white/5 w-16 h-16 rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-all">
+                            <i data-lucide="activity" class="w-9 h-9 text-purple-400 animate-float" style="animation-delay: 3s;"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-cyan-300 transition-colors">Máy chủ ổn định</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">Uptime 99.99%, đường truyền tốc độ cao.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pricing Section -->
+        <div id="pricing" class="py-24 relative z-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 drop-shadow-lg">Bảng Giá Dịch Vụ</h2>
+                    <div class="w-24 h-1 bg-gradient-to-r from-transparent via-cyan-500 to-transparent mx-auto rounded-full"></div>
+                </div>
+
+
+                <!-- Controls Bar (Sticky) -->
+                <div id="services-controls" class="mb-10">
+                    <div class="rounded-2xl border border-white/10 bg-[#050b14]/60 backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.25)] p-4 sm:p-5">
+                        <!-- Tabs Container -->
+                        <div id="tabs-container" class="flex flex-wrap justify-center gap-3 sm:gap-4">
+                            <!-- Tabs injected by JS -->
+                        </div>
+
+                        <!-- Search -->
+                        <div class="max-w-2xl mx-auto mt-4 relative group">
+                            <div class="absolute -inset-0.5 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl blur opacity-20 group-hover:opacity-50 transition duration-500"></div>
+                            <div class="relative">
+                                <input
+                                    type="text"
+                                    id="search-input"
+                                    aria-label="Tìm kiếm dịch vụ"
+                                    placeholder="Tìm kiếm dịch vụ..."
+                                    class="w-full bg-[#0f172a]/80 backdrop-blur-xl border border-white/10 text-white px-6 py-4 pl-14 rounded-xl focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all placeholder-gray-500 text-lg shadow-inner"
+                                />
+                                <i data-lucide="search" class="absolute left-5 top-5 w-5 h-5 text-gray-400 group-focus-within:text-cyan-400 transition-colors"></i>
+                            </div>
+                        </div>
+
+                        <!-- Filters + Sort -->
+                        <div class="mt-4 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+                            <div class="flex flex-wrap gap-2" id="filter-chips">
+                                <!-- Filter chips injected by JS -->
+                            </div>
+
+                            <div class="w-full lg:w-auto flex items-center gap-3">
+                                <label for="sort-select" class="text-xs text-gray-400 uppercase tracking-wider whitespace-nowrap">Sắp xếp</label>
+                                <select id="sort-select" aria-label="Sắp xếp dịch vụ"
+                                    class="w-full lg:w-60 bg-[#0f172a]/80 backdrop-blur-xl border border-white/10 text-white px-4 py-3 rounded-xl focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all text-sm shadow-inner">
+                                    <option value="default">Mặc định</option>
+                                    <option value="price-asc">Giá tăng dần</option>
+                                    <option value="price-desc">Giá giảm dần</option>
+                                    <option value="name-asc">Tên A → Z</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Services Container -->
+                <!-- Cập nhật: Bỏ khung viền (border), nền trong suốt (bg-transparent), giảm blur -->
+                <div class="rounded-3xl p-1 bg-transparent reveal delay-300">
+                    <div class="rounded-[20px] bg-[#0f172a]/10 backdrop-blur-[2px] p-6 md:p-8 min-h-[400px]">
+                        <div id="services-grid">
+                            <!-- Services injected by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div id="contact" class="py-24 relative z-10 overflow-hidden">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[100px] -z-10"></div>
+
+            <div class="max-w-4xl mx-auto px-4 text-center">
+                <h2 class="reveal text-4xl md:text-5xl font-bold text-white mb-8 drop-shadow-xl">Liên Hệ Hỗ Trợ</h2>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-3xl mx-auto">
+                    <a href="https://www.facebook.com/lamquoccuong.media" target="_blank" rel="noopener noreferrer" class="reveal delay-100 relative overflow-hidden group glass-panel bg-[#0084FF]/10 hover:bg-[#0084FF]/20 border border-[#0084FF]/30 p-8 rounded-3xl transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,132,255,0.3)]">
+                        <div class="absolute -right-10 -top-10 bg-[#0084FF]/20 w-32 h-32 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
+                        <div class="relative z-10 flex flex-col items-center">
+                            <div class="bg-white p-4 rounded-full text-[#0084FF] mb-4 shadow-lg group-hover:animate-bounce-slow">
+                                <i data-lucide="message-circle" class="w-8 h-8"></i>
+                            </div>
+                            <div class="text-gray-300 text-sm group-hover:text-white mb-1">Chat qua Messenger</div>
+                            <div class="text-white font-bold text-2xl">Facebook Support</div>
+                        </div>
+                    </a>
+
+                    <a href="https://zalo.me/0972026482" target="_blank" rel="noopener noreferrer" class="reveal delay-200 relative overflow-hidden group glass-panel bg-[#0068FF]/10 hover:bg-[#0068FF]/20 border border-[#0068FF]/30 p-8 rounded-3xl transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,104,255,0.3)]">
+                        <div class="absolute -right-10 -top-10 bg-[#0068FF]/20 w-32 h-32 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
+                        <div class="relative z-10 flex flex-col items-center">
+                            <div class="bg-white p-4 rounded-full text-[#0068FF] mb-4 shadow-lg group-hover:animate-bounce-slow">
+                                <i data-lucide="phone" class="w-8 h-8"></i>
+                            </div>
+                            <div class="text-gray-300 text-sm group-hover:text-white mb-1">Chat Zalo / Call</div>
+                            <div class="text-white font-bold text-2xl">0972.026.482</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Floating Chat Button -->
+    <a href="https://zalo.me/0972026482" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-cyan-500 to-blue-600 p-4 rounded-full shadow-[0_0_20px_rgba(6,182,212,0.5)] hover:scale-110 transition-transform duration-300 group animate-bounce-slow">
+        <i data-lucide="message-circle" class="w-8 h-8 text-white"></i>
+        <span class="absolute right-0 top-0 flex h-3 w-3">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-3 w-3 bg-cyan-500"></span>
+        </span>
+    </a>
+
+    <!-- Footer -->
+    <footer class="relative z-10 bg-[#050b14]/90 border-t border-white/10 pt-16 pb-8 backdrop-blur-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8 mb-8 text-center md:text-left reveal">
+                <div>
+                    <div class="flex items-center justify-center md:justify-start gap-2 mb-2">
+                        <div class="bg-gradient-to-tr from-cyan-400 to-blue-600 p-1.5 rounded-lg shadow-[0_0_10px_rgba(6,182,212,0.5)]">
+                            <i data-lucide="zap" class="text-white w-5 h-5"></i>
+                        </div>
+                        <!-- Đã đổi thành chữ thường -->
+                        <span class="text-2xl font-bold text-white tracking-wide">
+                            lamquoc<span class="text-cyan-400">cuong</span>
+                        </span>
+                    </div>
+                    <p class="text-gray-500 text-sm max-w-xs">
+                        Hệ thống cung cấp dịch vụ mạng xã hội uy tín hàng đầu.
+                    </p>
+                </div>
+                
+                <div class="flex gap-8 text-sm font-semibold text-gray-400">
+                    <a href="#" class="hover:text-cyan-400 transition-colors">Trang Chủ</a>
+                    <a href="#pricing" class="hover:text-cyan-400 transition-colors">Bảng Giá</a>
+                    <a href="#contact" class="hover:text-cyan-400 transition-colors">Liên Hệ</a>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/5 pt-8 text-center text-gray-600 text-sm reveal delay-100">
+                © <span id="year"></span> LamQuocCuong. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Particles JS Script -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+    <!-- Main Logic Script -->
+    <script>
+        // --- DATA ---
+        const CATEGORIES = [
+            { id: 'unlock', label: 'UNLOCK & KHÁNG NGHỊ', icon: 'unlock' },
+            { id: 'dame', label: 'DỊCH VỤ DAME (REPORT)', icon: 'skull' },
+            { id: 'tick', label: 'DỊCH VỤ TICK XANH', icon: 'badge-check' },
+            { id: 'interaction', label: 'TĂNG TƯƠNG TÁC', icon: 'mouse-pointer-2' },
+        ];
+
+        const SERVICES_DATA = [
+            // 1. DAME ACCOUNT
+            { category: 'dame', name: 'Dame Tài Khoản Facebook TCN Thường', price: '1.500.000đ', note: 'Xử lý nhanh' },
+            { category: 'dame', name: 'Dame Tài Khoản Facebook Chuyên Nghiệp', price: '1.700.000đ', note: 'Tỷ lệ cao' },
+            { category: 'dame', name: 'Dame Tài Khoản Facebook Locked', price: '1.500.000đ', note: 'Acc đã khóa' },
+            { category: 'dame', name: 'Dame Tài Khoản Facebook Không AVT', price: '1.900.000đ', note: 'Acc clone/trắng' },
+            { category: 'dame', name: 'Dame Fanpage Facebook', price: '3.000.000đ', note: 'Page doanh nghiệp/cá nhân' },
+            { category: 'dame', name: 'Dame Group Facebook', price: '8.000.000đ', note: 'Nhóm cộng đồng' },
+            { category: 'dame', name: 'Dame Tài Khoản TikTok', price: '4.000.000đ', note: 'Acc TikTok' },
+            { category: 'dame', name: 'Dame Video TikTok', price: '3.000.000đ', note: 'Gỡ video vi phạm' },
+            { category: 'dame', name: 'Dame Tài Khoản Instagram', price: '2.000.000đ', note: 'Acc Insta' },
+            { category: 'dame', name: 'Dame Tài Khoản Youtube', price: '9.000.000đ', note: 'Kênh Youtube' },
+            { category: 'dame', name: 'Dame Video Youtube', price: '5.000.000đ', note: 'Video Youtube' },
+            { category: 'dame', name: 'Dame Tài Khoản Threads', price: '2.500.000đ', note: 'Mạng xã hội mới' },
+
+            // 2. UNLOCK & KHÁNG NGHỊ
+            { category: 'unlock', name: 'Mở Khóa Facebook Dạng Két (956) Chính Chủ', price: '650.000đ', note: 'Cần giấy tờ' },
+            { category: 'unlock', name: 'Mở Khóa Facebook Dạng Két (956) Ko Chính Chủ', price: '2.500.000đ', note: 'Không cần mail gốc' },
+            { category: 'unlock', name: 'Mở Khóa Facebook Đình Chỉ (282) Lần Đầu', price: '650.000đ', note: 'Về nhanh' },
+            { category: 'unlock', name: 'Mở Khóa Facebook Đình Chỉ (282) Lần 2 Trở Lên', price: '2.500.000đ', note: 'Ca khó' },
+            { category: 'unlock', name: 'Mở Khóa Facebook FAQ Vô Hiệu Hóa', price: '8.500.000đ', note: 'Tùy tình trạng' },
+            { category: 'unlock', name: 'Kháng Vi Phạm Tiêu Chuẩn Cộng Đồng FB', price: '1.000.000đ', note: 'Gỡ gậy' },
+            { category: 'unlock', name: 'Lấy Lại Facebook Bị Hack', price: '850.000đ', note: 'Bảo mật lại' },
+            { category: 'unlock', name: 'Verify Bảo Vệ Tài Khoản Facebook', price: '2.500.000đ', note: 'Chống hack/dame' },
+            { category: 'unlock', name: 'Mở Khóa TikTok Cấm Vĩnh Viễn', price: '3.000.000đ', note: 'Tùy case' },
+            { category: 'unlock', name: 'Mở Khóa TikTok Die Bản Quyền', price: '30.000.000đ', note: 'Dành cho Shop/KOL' },
+            { category: 'unlock', name: 'Mở Khóa TikTok Giới Hạn Độ Tuổi', price: '650.000đ', note: 'Update ngày sinh' },
+            { category: 'unlock', name: 'Khiếu Nại Video TikTok', price: '1.000.000đ', note: 'Khôi phục video' },
+            { category: 'unlock', name: 'Bảo Kê Tài Khoản TikTok', price: 'Thương Lượng', note: 'Liên hệ trực tiếp' },
+            { category: 'unlock', name: 'Tài Khoản Agency TikTok', price: '5.000.000đ', note: 'TK Quảng cáo' },
+            { category: 'unlock', name: 'Mở Khóa Tài Khoản Instagram', price: '950.000đ', note: 'Bị 282/Két' },
+            { category: 'unlock', name: 'Kháng Nghị Video Youtube', price: '3 - 5.000.000đ', note: 'Bản quyền/Cộng đồng' },
+            { category: 'unlock', name: 'Kháng Nghị Bài viết Instagram', price: '900.000đ', note: 'Khôi phục post' },
+
+            // 3. TICK XANH
+            { category: 'tick', name: 'Lên Tick Xanh Profile Facebook (KBH)', price: '999.000đ', note: 'Không bảo hành' },
+            { category: 'tick', name: 'Lên Tick Xanh Profile Facebook (BH)', price: '1.850.000đ', note: 'Có bảo hành' },
+            { category: 'tick', name: 'Lên Tick Xanh Profile Facebook Chính Chủ (KBH)', price: '3.600.000đ', note: 'Chính chủ - KBH' },
+            { category: 'tick', name: 'Lên Tick Xanh Profile Facebook Chính Chủ (BH)', price: '5.500.000đ', note: 'Chính chủ - BH vĩnh viễn' },
+            { category: 'tick', name: 'Lên Tick Xanh Profile Instagram (BH)', price: '3.850.000đ', note: 'Meta Verified' },
+            { category: 'tick', name: 'Lên Tick Xanh Profile Instagram Chính Chủ (BH)', price: '7.500.000đ', note: 'Nâng cao uy tín' },
+
+            // 4. TƯƠNG TÁC
+            { category: 'interaction', platform: 'Facebook', name: 'Tăng Like Bài Viết', price: '180.000 / 1k', note: 'Tương tác' },
+            { category: 'interaction', platform: 'Facebook', name: 'Tăng Follow Profile/Page', price: '180.000 / 1k', note: 'Tương tác' },
+            { category: 'interaction', platform: 'Facebook', name: 'Tăng Mắt Livestream', price: '380.000 / 1k', note: 'Tương tác' },
+            { category: 'interaction', platform: 'Facebook', name: 'Tăng Đánh Giá (Review) Fanpage', price: '280.000 / 1k', note: 'Tương tác' },
+            { category: 'interaction', platform: 'Facebook', name: 'Tăng View Story', price: '100.000 / 1k', note: 'Tương tác' },
+            { category: 'interaction', platform: 'Facebook', name: 'Tăng Tương Tác Toàn Diện', price: '7.800.000 / Gói', note: 'Trọn gói VIP' },
+            { category: 'interaction', platform: 'TikTok', name: 'Tăng Tim Video', price: '180.000 / 1k', note: 'Tương tác' },
+            { category: 'interaction', platform: 'TikTok', name: 'Tăng Follow', price: '180.000 / 1k', note: 'Tương tác' },
+            { category: 'interaction', platform: 'TikTok', name: 'Tăng Mắt Livestream', price: '380.000 / 1k', note: 'Tương tác' },
+            { category: 'interaction', platform: 'TikTok', name: 'Tăng View Video', price: '10.000 / 1k', note: 'Tương tác' },
+            { category: 'interaction', platform: 'Instagram', name: 'Tăng Tim Bài Viết', price: '180.000 / 1k', note: 'Tương tác' },
+            { category: 'interaction', platform: 'Instagram', name: 'Tăng Follow', price: '180.000 / 1k', note: 'Tương tác' },
+            { category: 'interaction', platform: 'Instagram', name: 'Tăng Mắt Livestream', price: '380.000 / 1k', note: 'Tương tác' },
+            { category: 'interaction', platform: 'Instagram', name: 'Tăng View', price: '100.000 / 1k', note: 'Tương tác' },
+            { category: 'interaction', platform: 'Khác', name: 'Tăng Follow Shopee', price: 'Thương Lượng', note: 'Sàn TMĐT' },
+            { category: 'interaction', platform: 'Khác', name: 'Tăng Tim Shopee', price: 'Thương Lượng', note: 'Sàn TMĐT' },
+            { category: 'interaction', platform: 'Khác', name: 'Tăng Mắt Live Shopee', price: 'Thương Lượng', note: 'Sàn TMĐT' },
+            { category: 'interaction', platform: 'Khác', name: 'Tăng Đánh Giá Google Maps', price: 'Thương Lượng', note: 'SEO Map' },
+            { category: 'interaction', platform: 'Khác', name: 'Xác minh Google Maps', price: 'Thương Lượng', note: 'SEO Map' },
+            { category: 'interaction', platform: 'Khác', name: 'Dịch Vụ Telegram', price: 'Thương Lượng', note: 'Member/View' },
+        ];
+
+        // Preserve original order index (for default sort)
+        SERVICES_DATA.forEach((s, i) => { s.__idx = i; });
+
+        // --- STATE ---
+        let activeCategory = 'unlock';
+        let searchTerm = '';
+        let sortMode = 'default';
+        let activeTags = new Set();
+
+        // --- INIT PARTICLES ---
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const isSmallScreen = window.matchMedia('(max-width: 640px)').matches;
+
+        if (!reduceMotion) {
+            particlesJS("particles-js", {
+                "particles": {
+                    "number": { "value": isSmallScreen ? 45 : 70, "density": { "enable": true, "value_area": 800 } },
+                    "color": { "value": "#00d2ff" },
+                    "shape": { "type": "circle" },
+                    "opacity": { "value": 0.45, "random": false },
+                    "size": { "value": 3, "random": true },
+                    "line_linked": { "enable": true, "distance": 150, "color": "#00d2ff", "opacity": 0.25, "width": 1 },
+                    "move": { "enable": true, "speed": 1.6, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }
+                },
+                "interactivity": {
+                    "detect_on": "window",
+                    "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": false }, "resize": true },
+                    "modes": { "grab": { "distance": 200, "line_linked": { "opacity": 0.9 } } }
+                },
+                "retina_detect": true
+            });
+        } else {
+            const p = document.getElementById('particles-js');
+            if (p) p.style.display = 'none';
+        }
+
+        // --- DOM ELEMENTS ---
+        const tabsContainer = document.getElementById('tabs-container');
+        const servicesGrid = document.getElementById('services-grid');
+        const searchInput = document.getElementById('search-input');
+        const navbar = document.getElementById('navbar');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        const controlsBar = document.getElementById('services-controls');
+        const sortSelect = document.getElementById('sort-select');
+        const chipsContainer = document.getElementById('filter-chips');
+
+        // --- FUNCTIONS ---
+        
+
+        const TAG_FILTERS = [
+            { id: 'bh', label: 'Bảo hành', keywords: ['bh', 'bảo hành'] },
+            { id: 'chinhchu', label: 'Chính chủ', keywords: ['chính chủ'] },
+            { id: 'vip', label: 'VIP', keywords: ['vip'] },
+            { id: 'nhanh', label: 'Nhanh', keywords: ['nhanh', 'về nhanh', 'xử lý nhanh'] },
+            { id: 'tylecao', label: 'Tỷ lệ cao', keywords: ['tỷ lệ', 'tỷ lệ cao'] },
+            { id: 'seo', label: 'SEO', keywords: ['seo'] },
+        ];
+
+        function parsePriceValue(priceStr) {
+            if (!priceStr) return Number.POSITIVE_INFINITY;
+            const s = String(priceStr).trim();
+            if (/thương\s*lượng|liên\s*hệ/i.test(s)) return Number.POSITIVE_INFINITY;
+
+            // Range like "3 - 5.000.000đ"
+            const range = s.match(/(\d+(?:[.,]\d+)?)\s*-\s*(\d[\d.,]*)/);
+            if (range) {
+                const aRaw = range[1];
+                const bRaw = range[2];
+                let a = parseInt(aRaw.replace(/[.,\s]/g, ''), 10);
+                let b = parseInt(bRaw.replace(/[.,\s]/g, ''), 10);
+                if (Number.isFinite(a) && Number.isFinite(b) && a < 1000 && b >= 1000000) a = a * 1000000;
+                return Number.isFinite(a) ? a : Number.POSITIVE_INFINITY;
+            }
+
+            const m = s.match(/(\d[\d.,]*)/);
+            if (!m) return Number.POSITIVE_INFINITY;
+            const v = parseInt(m[1].replace(/[.,\s]/g, ''), 10);
+            return Number.isFinite(v) ? v : Number.POSITIVE_INFINITY;
+        }
+
+        function matchesActiveTags(service) {
+            if (!activeTags || activeTags.size === 0) return true;
+            const note = String(service.note || '').toLowerCase();
+            for (const tagId of activeTags) {
+                const tag = TAG_FILTERS.find(t => t.id === tagId);
+                if (!tag) continue;
+                const hit = tag.keywords.some(k => note.includes(k));
+                if (hit) return true; // OR logic
+            }
+            return false;
+        }
+
+        function sortServices(list) {
+            const arr = [...list];
+            if (sortMode === 'price-asc') {
+                arr.sort((a, b) => (parsePriceValue(a.price) - parsePriceValue(b.price)) || (a.__idx - b.__idx));
+            } else if (sortMode === 'price-desc') {
+                arr.sort((a, b) => (parsePriceValue(b.price) - parsePriceValue(a.price)) || (a.__idx - b.__idx));
+            } else if (sortMode === 'name-asc') {
+                arr.sort((a, b) => a.name.localeCompare(b.name, 'vi', { sensitivity: 'base' }));
+            } else {
+                arr.sort((a, b) => a.__idx - b.__idx);
+            }
+            return arr;
+        }
+
+        function renderFilters() {
+            if (!chipsContainer) return;
+
+            const allActive = activeTags.size === 0;
+
+            const chipClass = (active) =>
+                `px-3 py-2 rounded-xl text-xs font-bold uppercase tracking-wide border backdrop-blur-md transition-all ${
+                    active
+                        ? 'bg-gradient-to-r from-cyan-600/80 to-blue-600/80 border-cyan-400/50 text-white shadow-[0_0_18px_rgba(6,182,212,0.35)]'
+                        : 'bg-white/5 border-white/10 text-gray-400 hover:bg-white/10 hover:text-white hover:border-white/20'
+                }`;
+
+            const chipsHtml = [
+                `<button type="button" data-tag="__all" class="${chipClass(allActive)}">Tất cả</button>`,
+                ...TAG_FILTERS.map(t => `<button type="button" data-tag="${t.id}" class="${chipClass(activeTags.has(t.id))}">${t.label}</button>`)
+            ].join('');
+
+            chipsContainer.innerHTML = chipsHtml;
+
+            chipsContainer.querySelectorAll('button[data-tag]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const id = btn.getAttribute('data-tag');
+                    if (!id) return;
+
+                    if (id === '__all') {
+                        activeTags.clear();
+                    } else {
+                        if (activeTags.has(id)) activeTags.delete(id);
+                        else activeTags.add(id);
+                    }
+
+                    renderFilters();
+                    renderServices();
+                });
+            });
+        }
+
+        function updateControlsTop() {
+            if (!controlsBar) return;
+            const rect = navbar.getBoundingClientRect();
+            const top = Math.max(12, rect.bottom + 12);
+            controlsBar.style.top = `${top}px`;
+        }
+
+        
+        // 1. Render Tabs
+        function renderTabs() {
+            tabsContainer.innerHTML = CATEGORIES.map(cat => `
+                <button 
+                    onclick="setCategory('${cat.id}')"
+                    class="relative overflow-hidden flex items-center gap-2 px-8 py-4 rounded-2xl text-sm font-bold uppercase tracking-wide transition-all duration-300 border backdrop-blur-md ${activeCategory === cat.id ? 'bg-gradient-to-r from-cyan-600/80 to-blue-600/80 border-cyan-400/50 text-white shadow-[0_0_20px_rgba(6,182,212,0.4)] scale-105 z-10' : 'bg-white/5 border-white/5 text-gray-400 hover:bg-white/10 hover:text-white hover:border-white/20'}"
+                >
+                    ${activeCategory === cat.id ? '<div class="absolute inset-0 bg-white/10 animate-pulse-slow"></div>' : ''}
+                    <span class="relative z-10 flex items-center gap-2">
+                        <i data-lucide="${cat.icon}" class="w-4 h-4"></i> ${cat.label}
+                    </span>
+                </button>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        // 2. Render Services
+        function renderServices() {
+            let filtered = SERVICES_DATA.filter(s => 
+                s.category === activeCategory && 
+                s.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+                matchesActiveTags(s)
+            );
+
+            filtered = sortServices(filtered);
+
+            let html = '';
+
+            if (activeCategory === 'interaction') {
+                // Group by platform
+                const grouped = filtered.reduce((acc, service) => {
+                    const key = service.platform || 'Other';
+                    if (!acc[key]) acc[key] = [];
+                    acc[key].push(service);
+                    return acc;
+                }, {});
+
+                if (Object.keys(grouped).length === 0) {
+                    html = `<div class="text-center text-gray-500 py-12 text-lg">Không tìm thấy dịch vụ phù hợp.</div>`;
+                } else {
+                    const platformOrder = ['Facebook', 'TikTok', 'Instagram', 'Khác', 'Other'];
+                    Object.keys(grouped)
+                        .sort((a, b) => (platformOrder.indexOf(a) - platformOrder.indexOf(b)))
+                        .forEach(platform => {
+                        html += `
+                            <div class="mb-12 animate-fade-in-up">
+                                <h3 class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400 mb-6 flex items-center gap-3 border-b border-white/10 pb-4">
+                                    <span class="p-2 rounded-lg bg-white/5 border border-white/10 text-cyan-400">
+                                        ${getPlatformIcon(platform)}
+                                    </span>
+                                    ${platform}
+                                </h3>
+                                <!-- Cập nhật Grid: Giới hạn tối đa 2 cột trên màn hình lớn -->
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                                    ${grouped[platform].map(service => createServiceCard(service)).join('')}
+                                </div>
+                            </div>
+                        `;
+                    });
+                }
+            } else {
+                // Flat list for other categories
+                if (filtered.length === 0) {
+                    html = `<div class="col-span-full text-center text-gray-500 py-12 text-lg">Không tìm thấy dịch vụ phù hợp.</div>`;
+                } else {
+                    // Cập nhật Grid: Giới hạn tối đa 2 cột trên màn hình lớn
+                    html = `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 animate-fade-in-up">
+                        ${filtered.map(service => createServiceCard(service)).join('')}
+                    </div>`;
+                }
+            }
+
+            servicesGrid.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function getPlatformIcon(platform) {
+            switch(platform) {
+                case 'Facebook': return '<i data-lucide="facebook" class="w-6 h-6"></i>';
+                case 'TikTok': return '<i data-lucide="music-2" class="w-6 h-6"></i>';
+                case 'Instagram': return '<i data-lucide="instagram" class="w-6 h-6"></i>';
+                default: return '<i data-lucide="globe" class="w-6 h-6"></i>';
+            }
+        }
+
+        function createServiceCard(service) {
+            return `
+                <div class="group relative bg-[#1e293b]/40 backdrop-blur-md border border-white/5 p-5 rounded-2xl transition-all duration-300 hover:-translate-y-2 hover:bg-[#1e293b]/60 hover:border-cyan-500/30 hover:shadow-[0_10px_30px_rgba(0,0,0,0.3)] overflow-hidden">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-cyan-500/0 via-cyan-500/10 to-blue-500/0 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500"></div>
+                    
+                    <div class="relative z-10 flex flex-col h-full justify-between">
+                        <div class="mb-4">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="font-bold text-gray-100 text-lg group-hover:text-cyan-400 transition-colors line-clamp-2 leading-snug">
+                                    ${service.name}
+                                </h4>
+                                <i data-lucide="zap" class="w-4 h-4 text-gray-600 group-hover:text-yellow-400 transition-colors shrink-0 mt-1"></i>
+                            </div>
+                            <div class="h-px w-10 bg-white/10 group-hover:w-full group-hover:bg-cyan-500/50 transition-all duration-500 mb-3"></div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div>
+                                    <p class="text-xs text-gray-500 uppercase tracking-wider mb-0.5">Giá</p>
+                                    <p class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">${service.price}</p>
+                                </div>
+                                <a href="#contact" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-cyan-500 hover:text-white hover:shadow-[0_0_15px_rgba(6,182,212,0.5)] transition-all">
+                                    <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+                                </a>
+                            </div>
+                            
+                            <div class="pt-3 border-t border-white/5 flex items-center gap-2 text-xs text-gray-400 group-hover:text-gray-300">
+                                <i data-lucide="shield-check" class="w-3 h-3 text-green-500"></i>
+                                <span class="truncate">${service.note}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // --- EVENT HANDLERS ---
+        window.setCategory = (id) => {
+            activeCategory = id;
+            renderTabs();
+            renderServices();
+        }
+
+        searchInput.addEventListener('input', (e) => {
+            searchTerm = e.target.value;
+            renderServices();
+        });
+
+        if (sortSelect) {
+            sortSelect.addEventListener('change', (e) => {
+                sortMode = e.target.value;
+                renderServices();
+            });
+        }
+
+        // Scroll Effect
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('bg-[#0f172a]/70', 'backdrop-blur-xl', 'border-b', 'border-white/10', 'shadow-md', 'top-0');
+                navbar.classList.remove('bg-transparent', 'top-10');
+            } else {
+                navbar.classList.remove('bg-[#0f172a]/70', 'backdrop-blur-xl', 'border-b', 'border-white/10', 'shadow-md', 'top-0');
+                navbar.classList.add('bg-transparent', 'top-10');
+            }
+            updateControlsTop();
+        });
+
+        // Mobile Menu
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close menu when link clicked
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // --- SCROLL REVEAL OBSERVER ---
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); // Run animation once
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // --- INITIALIZE ---
+        const yearEl = document.getElementById('year');
+        if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+        renderTabs();
+        renderFilters();
+        renderServices();
+        lucide.createIcons();
+
+        updateControlsTop();
+        window.addEventListener('resize', updateControlsTop);
+
+    </script>
+</body>
+</html>
