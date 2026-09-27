@@ -36,7 +36,7 @@
 
     const LEAD_DELIVERY_CONFIG = {
         // Keep this exactly aligned with the homepage lead flow.
-        webhookUrl: "https://script.google.com/macros/s/AKfycbztTRTV_lJwa7V-dNg-LJUq0QV5C_0UXNL2bQbQntq_p7AZidNf-MrYte_-XLBdBmgx/exec",
+        webhookUrl: "https://clean-webhook-checker.onrender.com/webhook/lead",
         webhookMethod: "POST",
         webhookRequestMode: "cors",
         notifyViaTelegram: true
@@ -108,7 +108,7 @@
             const webhookResponse = await fetch(LEAD_DELIVERY_CONFIG.webhookUrl, {
                 method: LEAD_DELIVERY_CONFIG.webhookMethod || "POST",
                 headers: {
-                    "Content-Type": "text/plain;charset=UTF-8"
+                "Content-Type": "application/json"
                 },
                 body: leadPayloadAsJson,
                 mode: requestMode,
